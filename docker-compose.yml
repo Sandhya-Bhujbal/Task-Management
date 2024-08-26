@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      FLASK_APP=app.py
+      FLASK_ENV=production
+      DATABASE_URL: postgres://user:password@db:5432/task_management
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: task_management
+    ports:
+      - "5432:5432"
